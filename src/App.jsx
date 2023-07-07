@@ -4,7 +4,7 @@ function App() {
     <>
       Olá mundo!
     </>
-  )
+  );
 }
 
 export default App;
