@@ -5,9 +5,11 @@ import StyledLink from "../../components/StyledLink";
 import StyledTitle from "../../components/StyledTitle";
 import { Container } from "../../styles/Container";
 import apiAuth from "../../services/apiAuth";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function SignInPage() {
+    const { setUser } = useContext(UserContext);
     const [form, setForm] = useState({ email: "", senha: "" });
     const navigate = useNavigate();
 
@@ -20,8 +22,10 @@ export default function SignInPage() {
 
         apiAuth.login(form)
             .then(res => {
-                console.log(res.data);
-                //navigate("/home");
+                setUser(res.data); // id, nome, senha
+                localStorage.setItem("user", JSON.stringify(res.data));
+
+                navigate("/home");
             })
             .catch(err => {
                 switch (err.response.status) {
