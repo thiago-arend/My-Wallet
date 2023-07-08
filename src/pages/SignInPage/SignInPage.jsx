@@ -4,23 +4,61 @@ import StyledInput from "../../components/StyledInput";
 import StyledLink from "../../components/StyledLink";
 import StyledTitle from "../../components/StyledTitle";
 import { Container } from "../../styles/Container";
+import apiAuth from "../../services/apiAuth";
+import { useState } from "react";
 
 export default function SignInPage() {
+    const [form, setForm] = useState({ email: "", senha: "" });
     const navigate = useNavigate();
-    
+
+    function handleForm(e) {
+        setForm({ ...form, [e.target.name]: e.target.value })
+    }
+
     function handleLogin(e) {
         e.preventDefault();
 
-        navigate("/home");
+        apiAuth.login(form)
+            .then(res => {
+                console.log(res.data);
+                //navigate("/home");
+            })
+            .catch(err => {
+                switch (err.response.status) {
+                    case 404:
+                        alert("E-mail não cadastrado.");
+                        break;
+                    case 401:
+                        alert("Senha incorreta!");
+                        break;
+                    case 422:
+                        alert("Formato dos dados é inválido!");
+                        break;
+                    case 500:
+                        alert("Erro interno!");
+                }
+            });
     }
 
     return (
         <Container>
             <StyledTitle>MyWallet</StyledTitle>
             <form onSubmit={handleLogin}>
-                <StyledInput type="email" placeholder="E-mail"/>
-                <StyledInput ype="password" placeholder="Senha"/>
-                <StyledButton>Entrar</StyledButton>
+                <StyledInput
+                    name="email"
+                    value={form.email}
+                    required
+                    type="email"
+                    placeholder="E-mail"
+                    onChange={handleForm} />
+                <StyledInput
+                    name="senha"
+                    value={form.senha}
+                    required
+                    type="password"
+                    placeholder="Senha"
+                    onChange={handleForm} />
+                <StyledButton type="submit">Entrar</StyledButton>
             </form>
             <StyledLink to="/cadastro">Primeira vez? Cadastre-se!</StyledLink>
         </Container>

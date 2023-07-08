@@ -26,5 +26,5 @@ export default function SignUpPage() {
             </form>
             <StyledLink to="/">Já tem uma conta? Entre agora!</StyledLink>
         </Container>
-    )
+    );
 }
