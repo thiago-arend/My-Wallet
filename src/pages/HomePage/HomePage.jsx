@@ -2,16 +2,18 @@ import { Link, useNavigate } from "react-router-dom";
 import OperationLink from "../../components/OperationLink/OperationLink";
 import TransactionsHeader from "../../components/TransactionsHeader/TransactionsHeader";
 import { Container, MessageHistory, OperationLinksContainer, TransactionsHistoryContainer } from "./styled";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import apiTranscations from "../../services/apiTransactions";
 import Operation from "../../components/Operation/Operation";
 import Saldo from "../../components/Saldo/Saldo";
+import { TransactionContext } from "../../contexts/TransactionContext";
 
 export default function HomePage() {
     const { user } = useContext(UserContext);
-    const [transactions, setTransactions] = useState([]);
+    const {transactions, setTransactions} = useContext(TransactionContext);
     const navigate = useNavigate();
+    //const parsedUser = JSON.parse(user);
 
     useEffect(() => {
 

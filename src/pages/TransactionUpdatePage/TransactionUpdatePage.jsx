@@ -11,8 +11,10 @@ export default function TransactionUpdatePage() {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
     const [form, setForm] = useState({ valor: undefined, descricao: "" });
-    const tipo = useLocation().pathname.split("/")[useLocation().pathname.split("/").length - 1];
-    console.log(form);
+
+    const locationSplit = useLocation().pathname.split("/");
+    const tipo = locationSplit[locationSplit.length - 2];
+    const id = locationSplit[locationSplit.length - 1];
 
     useEffect(() => {
 
@@ -27,29 +29,30 @@ export default function TransactionUpdatePage() {
 
     function handleNewOperation(e) {
         e.preventDefault();
-
-        const formConverted = {...form, valor: Number(form.valor)}
-        apiTransactions.createTransaction(formConverted, tipo, user.token)
-        .then(() => {
-            navigate("/home");
-        })
-        .catch((err) => {
-            switch (err.response.status) {
-                case 401:
-                    alert("Usuário não autenticado!");
-                    break;
-                case 422:
-                    alert("Formato dos dados é inválido!");
-                    break;
-                case 500:
-                    alert("Erro interno!");
-            }
-        });
+        
+        const formConverted = { ...form, valor: Number(form.valor) }
+        apiTransactions.updateTransaction(formConverted, tipo, id, user.token)
+            .then(() => {
+                navigate("/home");
+            })
+            .catch((err) => {
+                switch (err.response.status) {
+                    case 401:
+                        alert("Usuário não autenticado!");
+                        break;
+                    case 422:
+                        console.log(err.response.data);
+                        alert("Formato dos dados é inválido!");
+                        break;
+                    case 500:
+                        alert("Erro interno!");
+                }
+            });
     }
 
     return (
         <Container>
-            <StyledSubtitle>Nova {(tipo === "entrada") ? "entrada" : "saída"}</StyledSubtitle>
+            <StyledSubtitle>Editar {(tipo === "entrada") ? "entrada" : "saída"}</StyledSubtitle>
             <form onSubmit={handleNewOperation}>
                 <StyledInput
                     name="valor"
@@ -67,7 +70,7 @@ export default function TransactionUpdatePage() {
                     type="text"
                     placeholder="Descrição"
                     onChange={handleForm} />
-                <StyledButton type="submit">Salvar {(tipo === "entrada") ? "entrada" : "saída"}</StyledButton>
+                <StyledButton type="submit">Atualizar {(tipo === "entrada") ? "entrada" : "saída"}</StyledButton>
             </form>
         </Container >
     )

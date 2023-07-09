@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const SaldoContainer = styled.div`
     position: fixed;
     z-index: 2;
-    bottom: 160px;
+    bottom: 152px;
     height: 25px;
     width: 306px;
+    background-color: #FFF;
+    border-radius: 8px;
 
     display: flex;
     justify-content: space-between;
