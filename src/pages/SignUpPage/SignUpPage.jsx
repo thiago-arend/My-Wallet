@@ -3,7 +3,7 @@ import StyledButton from "../../components/StyledButton";
 import StyledInput from "../../components/StyledInput";
 import StyledLink from "../../components/StyledLink";
 import StyledTitle from "../../components/StyledTitle";
-import { Container } from "../../styles/Container";
+import { VerticalCenterContainer } from "../../styles/VerticalCenterContainer";
 import apiAuth from "../../services/apiAuth";
 import { useState } from "react";
 
@@ -29,7 +29,7 @@ export default function SignUpPage() {
                         alert("Usuário já cadastrado! Use outro e-mail.");
                         break;
                     case 422:
-                        alert("Formato dos dados é inválido!");
+                        alert("Formato dos dados é inválido! (use uma senha mínima de 3 caracteres");
                         break;
                     case 500:
                         alert("Erro interno!");
@@ -46,7 +46,7 @@ export default function SignUpPage() {
     }
 
     return (
-        <Container>
+        <VerticalCenterContainer>
             <StyledTitle>MyWallet</StyledTitle>
             <form onSubmit={handleCadastro}>
                 <StyledInput
@@ -80,6 +80,6 @@ export default function SignUpPage() {
                 <StyledButton type="submit">Cadastrar</StyledButton>
             </form>
             <StyledLink to="/">Já tem uma conta? Entre agora!</StyledLink>
-        </Container>
+        </VerticalCenterContainer>
     );
 }

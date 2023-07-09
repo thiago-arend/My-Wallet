@@ -3,7 +3,7 @@ import StyledButton from "../../components/StyledButton";
 import StyledInput from "../../components/StyledInput";
 import StyledLink from "../../components/StyledLink";
 import StyledTitle from "../../components/StyledTitle";
-import { Container } from "../../styles/Container";
+import { VerticalCenterContainer } from "../../styles/VerticalCenterContainer";
 import apiAuth from "../../services/apiAuth";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -23,6 +23,7 @@ export default function SignInPage() {
         apiAuth.login(form)
             .then(res => {
                 setUser(res.data); // id, nome, senha
+                localStorage.removeItem("user");
                 localStorage.setItem("user", JSON.stringify(res.data));
 
                 navigate("/home");
@@ -45,7 +46,7 @@ export default function SignInPage() {
     }
 
     return (
-        <Container>
+        <VerticalCenterContainer>
             <StyledTitle>MyWallet</StyledTitle>
             <form onSubmit={handleLogin}>
                 <StyledInput
@@ -65,6 +66,6 @@ export default function SignInPage() {
                 <StyledButton type="submit">Entrar</StyledButton>
             </form>
             <StyledLink to="/cadastro">Primeira vez? Cadastre-se!</StyledLink>
-        </Container>
+        </VerticalCenterContainer>
     )
 }

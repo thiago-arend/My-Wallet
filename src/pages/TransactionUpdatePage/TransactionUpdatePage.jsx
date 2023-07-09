@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
-import { Container } from "../../styles/Container";
 import StyledInput from "../../components/StyledInput";
 import StyledButton from "../../components/StyledButton";
 import apiTransactions from "../../services/apiTransactions";
 import StyledSubtitle from "../../components/StyledSubtitle";
+import { VerticalCenterContainer } from "../../styles/VerticalCenterContainer";
+import { LeftAlignedContainer } from "../../styles/LeftAlignedContainer";
 
 export default function TransactionUpdatePage() {
     const { user } = useContext(UserContext);
@@ -51,7 +52,7 @@ export default function TransactionUpdatePage() {
     }
 
     return (
-        <Container>
+        <LeftAlignedContainer>
             <StyledSubtitle>Editar {(tipo === "entrada") ? "entrada" : "saída"}</StyledSubtitle>
             <form onSubmit={handleNewOperation}>
                 <StyledInput
@@ -72,6 +73,6 @@ export default function TransactionUpdatePage() {
                     onChange={handleForm} />
                 <StyledButton type="submit">Atualizar {(tipo === "entrada") ? "entrada" : "saída"}</StyledButton>
             </form>
-        </Container >
+        </LeftAlignedContainer >
     )
 }
