@@ -28,7 +28,7 @@ export default function Operation(props) {
         <OperationContainer tipo={tipo}>
             <div>
                 <span>{dayjs(timestamp).format("DD/MM")}</span>
-                <Link to={`/editar-registro/${tipo}/${_id}`}><span>{descricao}</span></Link>
+                <Link to={`/editar-registro/${tipo}/${_id}`} state={{ valor, descricao }}><span>{descricao}</span></Link>
             </div>
             <div>
                 <span>{(valor / 100).toFixed(2)}</span>

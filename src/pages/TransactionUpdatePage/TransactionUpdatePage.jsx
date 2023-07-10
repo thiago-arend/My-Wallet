@@ -12,9 +12,12 @@ import showErrorMsg from "../../constants/objectErros";
 export default function TransactionUpdatePage() {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
-    const [form, setForm] = useState({ valor: undefined, descricao: "" });
+    const location = useLocation();
 
-    const locationSplit = useLocation().pathname.split("/");
+    const {valor, descricao} = location.state;
+    const [form, setForm] = useState({ valor: valor / 100, descricao });
+
+    const locationSplit = location.pathname.split("/");
     const tipo = locationSplit[locationSplit.length - 2];
     const id = locationSplit[locationSplit.length - 1];
 
