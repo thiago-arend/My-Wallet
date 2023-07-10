@@ -26,9 +26,9 @@ export default function Operation(props) {
 
     return (
         <OperationContainer tipo={tipo}>
-            <div>
+            <div data-test="registry-name">
                 <span>{dayjs(timestamp).format("DD/MM")}</span>
-                <Link to={`/editar-registro/${tipo}/${_id}`} state={{ valor, descricao }} data-test="registry-name"><span>{descricao}</span></Link>
+                <Link to={`/editar-registro/${tipo}/${_id}`} state={{ valor, descricao }}><span>{descricao}</span></Link>
             </div>
             <div>
                 <span data-test="registry-amount">{valor.toFixed(2).replace(".", ",")}</span>
