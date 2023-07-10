@@ -5,28 +5,22 @@ import dayjs from "dayjs";
 import { UserContext } from "../../contexts/UserContext";
 import { TransactionContext } from "../../contexts/TransactionContext";
 import { Link } from "react-router-dom";
+import showErrorMsg from "../../constants/objectErros";
 
 export default function Operation(props) {
     const { _id, valor, descricao, tipo, timestamp } = props.operation;
     const { token } = useContext(UserContext).user;
-    const { setTransactions } = useContext(TransactionContext);
+    const { transactions, setTransactions } = useContext(TransactionContext);
 
     function deleteTransaction(id) {
         if (!confirm("Deseja realmente apagar essa operação?")) return;
 
         apiTranscations.deleteTransaction(id, token)
             .then(() => {
-
-                apiTranscations.getTransactions(token)
-                    .then((res) => {
-                        setTransactions(res.data);
-                    })
-                    .catch((err) => {
-                        console.log(err.response.data);
-                    });
+                setTransactions(transactions.filter(t => t._id !== id));
             })
             .catch(err => {
-                console.log(err.response.status);
+                showErrorMsg(err.response.status);
             });
     }
 

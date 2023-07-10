@@ -5,8 +5,9 @@ import StyledInput from "../../components/StyledInput";
 import StyledButton from "../../components/StyledButton";
 import apiTransactions from "../../services/apiTransactions";
 import StyledSubtitle from "../../components/StyledSubtitle";
-import { VerticalCenterContainer } from "../../styles/VerticalCenterContainer";
 import { LeftAlignedContainer } from "../../styles/LeftAlignedContainer";
+import { handleForm } from "../../functions/controlledInputFunctions";
+import showErrorMsg from "../../constants/objectErros";
 
 export default function TransactionUpdatePage() {
     const { user } = useContext(UserContext);
@@ -18,36 +19,20 @@ export default function TransactionUpdatePage() {
     const id = locationSplit[locationSplit.length - 1];
 
     useEffect(() => {
-
-        if (user === null) {
-            return navigate("/");
-        }
+        
+        if (user === null) return navigate("/");
     }, []);
-
-    function handleForm(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    }
 
     function handleNewOperation(e) {
         e.preventDefault();
-        
+
         const formConverted = { ...form, valor: Number(form.valor) }
         apiTransactions.updateTransaction(formConverted, tipo, id, user.token)
             .then(() => {
                 navigate("/home");
             })
             .catch((err) => {
-                switch (err.response.status) {
-                    case 401:
-                        alert("Usuário não autenticado!");
-                        break;
-                    case 422:
-                        console.log(err.response.data);
-                        alert("Formato dos dados é inválido!");
-                        break;
-                    case 500:
-                        alert("Erro interno!");
-                }
+                showErrorMsg(err.response.status);
             });
     }
 
@@ -63,14 +48,14 @@ export default function TransactionUpdatePage() {
                     required
                     type="number"
                     placeholder="Valor"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledInput
                     name="descricao"
                     value={form.descricao}
                     required
                     type="text"
                     placeholder="Descrição"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledButton type="submit">Atualizar {(tipo === "entrada") ? "entrada" : "saída"}</StyledButton>
             </form>
         </LeftAlignedContainer >

@@ -6,6 +6,8 @@ import StyledTitle from "../../components/StyledTitle";
 import { VerticalCenterContainer } from "../../styles/VerticalCenterContainer";
 import apiAuth from "../../services/apiAuth";
 import { useState } from "react";
+import { handleForm } from "../../functions/controlledInputFunctions";
+import showErrorMsg from "../../constants/objectErros";
 
 export default function SignUpPage() {
     const [form, setForm] = useState({ nome: "", email: "", senha: "", confirm: "" });
@@ -24,21 +26,8 @@ export default function SignUpPage() {
                 navigate("/");
             })
             .catch(err => {
-                switch (err.response.status) {
-                    case 409:
-                        alert("Usuário já cadastrado! Use outro e-mail.");
-                        break;
-                    case 422:
-                        alert("Formato dos dados é inválido! (use uma senha mínima de 3 caracteres");
-                        break;
-                    case 500:
-                        alert("Erro interno!");
-                }
+                showErrorMsg(err.response.status);
             });
-    }
-
-    function handleForm(e) {
-        setForm({ ...form, [e.target.name]: e.target.value })
     }
 
     function passwordMatch(p1, p2) {
@@ -55,28 +44,28 @@ export default function SignUpPage() {
                     value={form.nome}
                     required
                     placeholder="Nome"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledInput
                     type="email"
                     name="email"
                     value={form.email}
                     required
                     placeholder="E-mail"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledInput
                     type="password"
                     name="senha"
                     value={form.senha}
                     required
                     placeholder="Senha"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledInput
                     type="password"
                     name="confirm"
                     value={form.confirm}
                     required
                     placeholder="Confirme a senha"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledButton type="submit">Cadastrar</StyledButton>
             </form>
             <StyledLink to="/">Já tem uma conta? Entre agora!</StyledLink>

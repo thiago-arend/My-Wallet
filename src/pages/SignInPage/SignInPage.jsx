@@ -7,15 +7,13 @@ import { VerticalCenterContainer } from "../../styles/VerticalCenterContainer";
 import apiAuth from "../../services/apiAuth";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { handleForm } from "../../functions/controlledInputFunctions";
+import showErrorMsg from "../../constants/objectErros";
 
 export default function SignInPage() {
     const { setUser } = useContext(UserContext);
     const [form, setForm] = useState({ email: "", senha: "" });
     const navigate = useNavigate();
-
-    function handleForm(e) {
-        setForm({ ...form, [e.target.name]: e.target.value })
-    }
 
     function handleLogin(e) {
         e.preventDefault();
@@ -29,19 +27,7 @@ export default function SignInPage() {
                 navigate("/home");
             })
             .catch(err => {
-                switch (err.response.status) {
-                    case 404:
-                        alert("E-mail não cadastrado.");
-                        break;
-                    case 401:
-                        alert("Senha incorreta!");
-                        break;
-                    case 422:
-                        alert("Formato dos dados é inválido!");
-                        break;
-                    case 500:
-                        alert("Erro interno!");
-                }
+                showErrorMsg(err.response.status);
             });
     }
 
@@ -55,14 +41,14 @@ export default function SignInPage() {
                     required
                     type="email"
                     placeholder="E-mail"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledInput
                     name="senha"
                     value={form.senha}
                     required
                     type="password"
                     placeholder="Senha"
-                    onChange={handleForm} />
+                    onChange={(e) => handleForm(e, form, setForm)} />
                 <StyledButton type="submit">Entrar</StyledButton>
             </form>
             <StyledLink to="/cadastro">Primeira vez? Cadastre-se!</StyledLink>

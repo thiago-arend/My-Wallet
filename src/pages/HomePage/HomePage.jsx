@@ -8,25 +8,23 @@ import apiTranscations from "../../services/apiTransactions";
 import Operation from "../../components/Operation/Operation";
 import Saldo from "../../components/Saldo/Saldo";
 import { TransactionContext } from "../../contexts/TransactionContext";
+import showErrorMsg from "../../constants/objectErros";
 
 export default function HomePage() {
     const { user } = useContext(UserContext);
     const {transactions, setTransactions} = useContext(TransactionContext);
     const navigate = useNavigate();
-    //const parsedUser = JSON.parse(user);
 
     useEffect(() => {
 
-        if (user === null) {
-            return navigate("/");
-        }
+        if (user === null) return navigate("/");
 
         apiTranscations.getTransactions(user.token)
             .then((res) => {
                 setTransactions(res.data);
             })
             .catch((err) => {
-                console.log(err.response.data);
+                showErrorMsg(err.response.data);
             });
 
     }, []);
