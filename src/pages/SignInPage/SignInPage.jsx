@@ -41,15 +41,17 @@ export default function SignInPage() {
                     required
                     type="email"
                     placeholder="E-mail"
-                    onChange={(e) => handleForm(e, form, setForm)} />
+                    onChange={(e) => handleForm(e, form, setForm)}
+                    data-test="email" />
                 <StyledInput
                     name="senha"
                     value={form.senha}
                     required
                     type="password"
                     placeholder="Senha"
-                    onChange={(e) => handleForm(e, form, setForm)} />
-                <StyledButton type="submit">Entrar</StyledButton>
+                    onChange={(e) => handleForm(e, form, setForm)}
+                    data-test="password" />
+                <StyledButton data-test="sign-in-submit" type="submit">Entrar</StyledButton>
             </form>
             <StyledLink to="/cadastro">Primeira vez? Cadastre-se!</StyledLink>
         </VerticalCenterContainer>

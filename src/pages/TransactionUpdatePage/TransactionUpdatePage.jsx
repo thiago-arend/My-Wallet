@@ -51,15 +51,17 @@ export default function TransactionUpdatePage() {
                     required
                     type="number"
                     placeholder="Valor"
-                    onChange={(e) => handleForm(e, form, setForm)} />
+                    onChange={(e) => handleForm(e, form, setForm)}
+                    data-test="registry-amount-input" />
                 <StyledInput
                     name="descricao"
                     value={form.descricao}
                     required
                     type="text"
                     placeholder="Descrição"
-                    onChange={(e) => handleForm(e, form, setForm)} />
-                <StyledButton type="submit">Atualizar {(tipo === "entrada") ? "entrada" : "saída"}</StyledButton>
+                    onChange={(e) => handleForm(e, form, setForm)}
+                    data-test="registry-name-input" />
+                <StyledButton data-test="registry-save" type="submit">Atualizar {(tipo === "entrada") ? "entrada" : "saída"}</StyledButton>
             </form>
         </LeftAlignedContainer >
     )
