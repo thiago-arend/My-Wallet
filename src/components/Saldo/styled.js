@@ -4,7 +4,7 @@ export const SaldoContainer = styled.div`
     position: fixed;
     z-index: 2;
     bottom: calc(100vh - 514px);
-    height: 25px;
+    height: 40px;
     width: 306px;
     background-color: #FFF;
     border-radius: 8px;

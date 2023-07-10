@@ -27,7 +27,11 @@ export const TransactionsHistoryContainer = styled.div`
     border-radius: 8px;
     border: 1px solid #FFF;
     margin-bottom: 14px;
-    overflow:auto;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const MessageHistory = styled.div`
