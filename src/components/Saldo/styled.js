@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const SaldoContainer = styled.div`
-    position: fixed;
+    position: absolute;
     z-index: 2;
-    bottom: 152px;
+    bottom: 0;
     height: 25px;
     width: 306px;
     background-color: #FFF;

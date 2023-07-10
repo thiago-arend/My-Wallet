@@ -8,7 +8,7 @@ import TransactionProvider from "./contexts/TransactionContext";
 import TransactionUpdatePage from "./pages/TransactionUpdatePage/TransactionUpdatePage";
 
 export default function App() {
-
+  
   return (
     <BrowserRouter>
       <UserProvider>
