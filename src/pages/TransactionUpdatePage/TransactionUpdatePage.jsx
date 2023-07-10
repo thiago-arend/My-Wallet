@@ -15,7 +15,7 @@ export default function TransactionUpdatePage() {
     const location = useLocation();
 
     const {valor, descricao} = location.state;
-    const [form, setForm] = useState({ valor: valor / 100, descricao });
+    const [form, setForm] = useState({ valor, descricao });
 
     const locationSplit = location.pathname.split("/");
     const tipo = locationSplit[locationSplit.length - 2];

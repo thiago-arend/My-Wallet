@@ -28,10 +28,10 @@ export default function Operation(props) {
         <OperationContainer tipo={tipo}>
             <div>
                 <span>{dayjs(timestamp).format("DD/MM")}</span>
-                <Link to={`/editar-registro/${tipo}/${_id}`} state={{ valor, descricao }}><span data-test="registry-name">{descricao}</span></Link>
+                <Link data-test="registry-name" to={`/editar-registro/${tipo}/${_id}`} state={{ valor, descricao }}><span>{descricao}</span></Link>
             </div>
             <div>
-                <span data-test="registry-amount">{(valor / 100).toFixed(2)}</span>
+                <span data-test="registry-amount">{valor.toFixed(2)}</span>
                 <ion-icon data-test="registry-delete" onClick={() => { deleteTransaction(_id) }} name="close-outline"></ion-icon>
             </div>
         </OperationContainer>
