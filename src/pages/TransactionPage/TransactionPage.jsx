@@ -16,7 +16,7 @@ export default function TransactionUpdatePage() {
     const tipo = useLocation().pathname.split("/")[useLocation().pathname.split("/").length - 1];
 
     useEffect(() => {
-
+        
         if (user === null) return navigate("/");
     }, []);
 
